@@ -39,6 +39,7 @@ int main()
 	int simplex[N + 1][N];
 	int coeff[N];
 	float f_PWAS;
+	FILE *fout;
 
 	/*initializaion of points*/
 
@@ -52,17 +53,17 @@ int main()
 			{
 				zeta[k] = 310.224 * pointsM[j][k] + 2047.48;  // converting from [496.36 3598.6] to [-5 5]
 			}
-
+					
 			/*Transforming Z in a equally distributed space... */
 			Transform(zeta, zeta_T);
-
+	
 			/* Preparing Z for elaboration... */
 			PrepZ(zround, zeta_T, sorted, decimal_z);
 			Sorting(sorted, N);
 
 			/* A matrix... */
 			ACalc(decimal_z, sorted, a_M);
-
+		
 			/* declaring simplex corner... */
 			SimplexCalc(a_M, zround, simplex);
 
@@ -73,7 +74,7 @@ int main()
 			points = PointsCalc(points, Np);
 			nbit = decimal_binary(Np[0] - 1);
 			nbit = DigitsCount(nbit);
-
+		
 			/* coefficent calculation... */
 			CoeffCalc(coeff, Np);
 			AddressCalc(address, coeff, simplex);
@@ -84,11 +85,14 @@ int main()
 			{
 				k = address[i];
 				f_PWAS = f_PWAS + (mu[i] * data[k]);
-			}
+			}	
 
 			f_PWAS = 2047.5*f_PWAS + 1023.75;	// converting from [0 4095] to [-2 2]
+
+			fprintf(fout, "%f\n", f_PWAS);
 		}
-		return 0;
 	}
 
-}
+	return 0;
+};
+
