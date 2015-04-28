@@ -53,10 +53,9 @@ int main()
 		{
 			for (k = 0; k < N; k++)
 			{
-				zeta[k] = pointsM[j][k];
+				zeta[k] = 310.224 * pointsM[j][k] + 2047.48;  // converting from [496.36 3598.6] to [-5 5]
 			}
-
-		
+					
 			/*Transforming Z in a equally distributed space... */
 			Transform(zeta, zeta_T);
 	
@@ -90,7 +89,7 @@ int main()
 				f_PWAS = f_PWAS + (mu[i] * data[k]);
 			}	
 
-			f_PWAS = 2047.5*f_PWAS + 1023.75;
+			f_PWAS = 2047.5*f_PWAS + 1023.75;	// converting from [0 4095] to [-2 2]
 
 			fprintf(fout, "%f\n", f_PWAS);
 		}
