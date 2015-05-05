@@ -46,14 +46,14 @@ fprintf(Opar, 'const int maxNp = %d;',maxNp);
 fprintf(Opar, '\n\nconst int N = %d;',ndim);
 
 % const int Np[maxNp] = {...};
-fprintf(Opar, '\n\nconst int Np[maxNp] = {');
+fprintf(Opar, '\n\nconst int Np[%d] = {', maxNp);
 for i=1:(ndim-1)
     fprintf(Opar, '%d,',numel(P{i}));
 end
 fprintf(Opar, '%d};',numel(P{ndim}));
 
 % float values[N][maxNp + 1] = {...}
-fprintf(Opar, '\n\nfloat values[N][maxNp + 1] = {\n\t');
+fprintf(Opar, '\n\nfloat values[%d][%d] = {\n\t', ndim, (maxNp+1));
 for i=1 :(ndim - 1)
     fprintf(Opar, '%f,',P{i});
     fprintf(Opar, '\n\t');
@@ -64,14 +64,14 @@ end
  fprintf(Opar, '%f\n};', P{ndim}(end));
 
  % const float m[N][maxNp] = {
- fprintf(Opar, '\n\nconst float m[N][maxNp] = {\n\t');
+ fprintf(Opar, '\n\nconst float m[%d][%d] = {\n\t', ndim, maxNp);
  for i = 1: (numel(solM(1,:))- 1)
      fprintf(Opar, '%f,',solM(1,i));
  end
  fprintf(Opar, '%f\n};',solM(1,end));
  
   % const float q[N][maxNp] = {
- fprintf(Opar, '\n\nconst float q[N][maxNp] = {\n\t');
+ fprintf(Opar, '\n\nconst float q[%d][%d] = {\n\t', ndim, maxNp);
  for i = 1: (numel(solM(2,:))- 1)
      fprintf(Opar, '%f,',solM(2,i));
  end
